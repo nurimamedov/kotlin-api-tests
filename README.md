@@ -45,3 +45,7 @@ for the measured run. The scenario checks HTTP 201 and a response ID for every
 request. It uses the same loopback fixture but no-op storage and messaging, so
 the measured latency covers the HTTP fixture only. It is neither a production
 benchmark nor a database or broker throughput test.
+
+## License
+
+[MIT](LICENSE). Copyright © 2026 Nuri Mamedov. Keep the copyright and license notice when copying or redistributing substantial portions.
