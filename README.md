@@ -32,3 +32,16 @@ The first integration run may download container images. JUnit writes its report
 ## Scope
 
 The server is a test fixture, not a production order service. Persistence and publishing are separate operations. If the broker fails after the database commit, the fixture reports a dependency error and the row can still exist. In a production version I would persist an outbox entry in the database transaction and make publication retryable and consumers idempotent; the test here intentionally does not claim atomic delivery.
+
+## Optional Gatling load smoke
+
+```sh
+mvn -Pload -B gatling:test
+```
+
+This experiment increases the input rate in three five-second steps (2, 5 and
+10 requests/s). Gatling's report under `target/gatling/` includes p95 and p99
+for the measured run. The scenario checks HTTP 201 and a response ID for every
+request. It uses the same loopback fixture but no-op storage and messaging, so
+the measured latency covers the HTTP fixture only. It is neither a production
+benchmark nor a database or broker throughput test.
